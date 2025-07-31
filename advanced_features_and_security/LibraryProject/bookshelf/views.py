@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book
-from .forms import BookForm
+from .forms import ExampleForm
 
 @permission_required('bookshelf.can_view', raise_exception=True)
 def view_books(request):
@@ -12,18 +12,18 @@ def view_books(request):
 @permission_required('bookshelf.can_create', raise_exception=True)
 def create_book(request):
     if request.method == 'POST':
-        form = BookForm(request.POST)
+        form = ExampleForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('view_books')
     else:
-        form = BookForm()
+        form = ExampleForm()
     return render(request, 'bookshelf/book_form.html', {'form': form, 'action': 'Create'})
 
 @permission_required('bookshelf.can_edit', raise_exception=True)
 def edit_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
-    form = BookForm(request.POST or None, instance=book)
+    form = ExampleForm(request.POST or None, instance=book)
     if request.method == 'POST' and form.is_valid():
         form.save()
         return redirect('view_books')
@@ -42,12 +42,12 @@ def book_list(request):
 @permission_required('bookshelf.can_add_book', raise_exception=True)
 def add_book(request):
     if request.method == 'POST':
-        form = BookForm(request.POST)
+        form = ExampleForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('book_list')
     else:
-        form = BookForm()
+        form = ExampleForm()
     return render(request, 'bookshelf/form_example.html', {'form': form})
 
 # This view safely handles user input by validating it through Django forms.
