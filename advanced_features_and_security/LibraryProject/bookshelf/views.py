@@ -36,3 +36,6 @@ def delete_book(request, pk):
         book.delete()
         return redirect('view_books')
     return render(request, 'bookshelf/confirm_delete.html', {'book': book})
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, 'bookshelf/book_list.html', {'books': books})
