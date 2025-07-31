@@ -144,5 +144,10 @@ CSP_STYLE_SRC = ("'self'", 'fonts.googleapis.com')
 CSP_FONT_SRC = ("'self'", 'fonts.gstatic.com')
 CSP_SCRIPT_SRC = ("'self'",)
 
+SECURE_SSL_REDIRECT = True 
+
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 # Security-related settings to prevent XSS, CSRF, clickjacking, and sniffing attacks.
